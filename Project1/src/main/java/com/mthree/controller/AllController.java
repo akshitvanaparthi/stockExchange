@@ -224,7 +224,8 @@ public class AllController
   			mv.addObject("matchedBuyOrder", matchedBuyOrder);
   				
 		}
-		else {
+		else 
+		{
 			mv.setViewName("empty");
 		}
   			
