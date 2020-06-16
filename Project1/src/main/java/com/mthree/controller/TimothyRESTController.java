@@ -23,7 +23,7 @@ public class TimothyRESTController {
 		TimothyOrderBook orderBook = new TimothyOrderBook(1);
 //		System.out.println(timothyService.getBidOrder());
 		System.out.println(timothyService.getAllInstrument());
-//		System.out.println(orderBook.getBidOrder());
+		System.out.println(timothyService.getInstrumentById(1);
 //		System.out.println(ti.getBidOrder());
 		return null;
 
