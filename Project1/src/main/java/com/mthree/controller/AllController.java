@@ -142,29 +142,9 @@ public class AllController
      
      
      
-     @GetMapping("/getsellorders")
- 	public ModelAndView getSell()
-    {
-    	 
-    	List<SellOrder> sellOrderList = services.loadSell();
- 		
- 		ModelAndView mv = new ModelAndView();
- 		
- 		if(sellOrderList.size()>0) {
- 		
- 		mv.setViewName("sellOrder_list");
- 		mv.addObject("sellOrderList", sellOrderList);
- 			
- 		}
- 		else {
- 			mv.setViewName("empty");
- 		}
- 		
- 		
- 		return mv;
- 	 }
+ 
 	
-    
+ 
      
      
      
@@ -257,11 +237,17 @@ public class AllController
      
      
      
+     @GetMapping("/getsellorders")
+  	public List<SellOrder> getSell()
+     {
+     	 
+     	return services.loadSell();
+  		
+  		
+  	 }
      
      
      
-     
-     /*
      
      @GetMapping("/getbuyorders")
    	public List<BuyOrder> getbuy(){
@@ -275,7 +261,7 @@ public class AllController
         return services.loadValues();
     }
     
-    */
+   
  	
    /* @PostMapping("/getBuyValues")
     public List<BuyOrder> getBuyValues(int buy_shares){
