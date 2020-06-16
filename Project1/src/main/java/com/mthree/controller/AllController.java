@@ -200,16 +200,22 @@ public class AllController
   
      @PostMapping("/performBuyMatch")
   	public ModelAndView buyOrderMatch(HttpServletRequest r,
-  			@RequestParam("noOfShares") int noOfShares,
-  			@RequestParam("priceLimit") float priceLimit)
+  			@RequestParam("noOfShares") String noOfShares1,
+  			@RequestParam("priceLimit") String priceLimit1)
      {
+    	 int noOfShares = Integer.parseInt(noOfShares1);
+    	 float priceLimit = Integer.parseInt(priceLimit1);
+    	 
+    	 System.out.println(noOfShares);
+    	 System.out.println(priceLimit);
+    	 
     	 Random rand = new Random();
     	 
     	int buyerId = rand.nextInt(10000);
     	
     	
   		SellOrder matchedSellOrder = services.buyOrderMatch(noOfShares, priceLimit);
-  		
+  		System.out.println("hello");
   		ModelAndView mv = new ModelAndView();
   		if(matchedSellOrder !=null) 
   		{
