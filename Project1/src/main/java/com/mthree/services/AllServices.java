@@ -87,6 +87,20 @@ public class AllServices
 	  /*  public List<BuyOrder> loadBuyValues(int buy_shares){
 	    	return buy.getBuyValues(buy_shares);
 	    }*/
-	   
+    
+    
+    
+    public SellOrder buyOrderMatch(int noOfShares, float priceLimit)
+    {
+		return sell.buyOrderMatch(noOfShares, priceLimit);
+
+	}
+    
+    
+    
+    
+    
+    
+    
 
 }

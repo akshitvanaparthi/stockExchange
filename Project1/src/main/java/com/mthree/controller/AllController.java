@@ -2,6 +2,7 @@ package com.mthree.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mthree.model.BuyOrder;
 import com.mthree.model.OrderBook;
 import com.mthree.model.SellOrder;
 import com.mthree.model.User;
@@ -197,43 +199,42 @@ public class AllController
      
      
      
-    /* 
+  
      @PostMapping("/performBuyMatch")
   	public ModelAndView buyOrderMatch(HttpServletRequest r,
-  			@RequestParam("noOfShares") String noOfShares,
-  			@RequestParam("priceLimit") String priceLimit){
-  		//Desc: process login POST request from login page
-
-  		//if set username sessino, then redirect them to index page
-  		if (r.getSession().getAttribute("username") != null) {
-  			return new ModelAndView("index");
-  		}
+  			@RequestParam("noOfShares") int noOfShares,
+  			@RequestParam("priceLimit") float priceLimit)
+     {
+    	 Random rand = new Random();
+    	 
+    	int buyerId = rand.nextInt(10000);
+    	
+    	
+  		SellOrder matchedSellOrder = services.buyOrderMatch(noOfShares, priceLimit);
   		
-  		
-  		//		System.out.println(username);
-  		//		System.out.println(password);
-
-  		Optional<User> u = services.loginUser(username, password);
-  		if (u.isPresent()) {
-  			System.out.println("[O] /login: " + u.get());
+  		ModelAndView mv = new ModelAndView();
+  		if(matchedSellOrder !=null) 
+  		{
   			
-  			//add value to session, so user no need to login anymore
+  			BuyOrder matchedBuyOrder=new BuyOrder(buyerId,noOfShares,priceLimit);
   			
   			
-  			r.getSession().setAttribute("username",u.get().getUsername());
-  			r.getSession().setAttribute("id",u.get().getId());
+  			mv.setViewName("matched_order");
+  			mv.addObject("matchedSellOrder", matchedSellOrder);
+  			mv.addObject("matchedBuyOrder", matchedBuyOrder);
+  				
+		}
+		else {
+			mv.setViewName("empty");
+		}
   			
-  			return new ModelAndView("index");
-  		}else {
-  			//TODO:return error msg to user show them their username and password is incorrect
-  			System.out.println("[X] /login: username or password incorrect");
-  			return new ModelAndView("login");
-  		}
-  		
+		
+		return mv;
+	
   		
   	}
      
-     */
+     
      
      
      
