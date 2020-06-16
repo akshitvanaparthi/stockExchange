@@ -173,15 +173,15 @@
                                     <form id="bidForm" method ="post" action="/performBuyMatch">
                                         price: <input name="priceLimit" id="" type="number" class="" step="0.01" style="height: 35px;">
                                         volume: <input name="noOfShares" id="" type="number" class="" style="height: 35px;">
-                                        <button type="button" class="btn btn-primary" id="submitBidOrder">Bid</button>
+                                        <button type="submit" class="btn btn-primary" id="submitBidOrder">Bid</button>
                                     </form>
                                 </div>
 
                                 <div id="askContainer" style="margin-bottom: 10px;display: none;">
-                                    <form id="askForm">
+                                    <form id="askForm" method ="post" action="/performSellMatch">
                                         price: <input name="priceLimit" type="number" class="" step="0.01" style="height: 35px;">
                                         volume:<input name="noOfShares" type="number" class="" style="height: 35px;">
-                                        <button type="button" class="btn btn-danger" id="submitAskOrder">Ask</button>
+                                        <button type="submit" class="btn btn-danger" id="submitAskOrder">Ask</button>
                                     </form>
                                 </div>
 
@@ -189,7 +189,7 @@
                                     <form id="cancelForm">
                                         price: <input name="priceLimit" type="number" class="" step="0.01" style="height: 35px;">
                                         volume: <input name="noOfShares" type="number" class="" style="height: 35px;">
-                                        <button type="button" class="btn btn-secondary" id="submitCancelOrder">cancel</button>
+                                        <button type="submit" class="btn btn-secondary" id="submitCancelOrder">cancel</button>
                                     </form>
                                 </div>
                             </div>
