@@ -20,13 +20,13 @@ public class TimothyRESTController {
 	
 	@GetMapping("/instrument/{instrumentId}")
 	public List<TimothyBidOrder> getOneOrderBook(@PathVariable int instrumentId){
-//	public List<TimothyBidOrder> getOneOrderBook(){
-//		TimothyOrderBook t = new TimothyOrderBook(instrument);
-//		TimothyOrderBook t = new TimothyOrderBook(1);
-//		return t.getBidOrder();
-		
-		System.out.println(timothyService.getBidOrder());
-		return timothyService.getBidOrder();
+		TimothyOrderBook orderBook = new TimothyOrderBook(1);
+//		System.out.println(timothyService.getBidOrder());
+		System.out.println(timothyService.getAllInstrument());
+//		System.out.println(orderBook.getBidOrder());
+//		System.out.println(ti.getBidOrder());
+		return null;
+
 	}
 	
 	

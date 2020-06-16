@@ -62,6 +62,11 @@ public class TimothyInstrument {
 		this.bidOrders = bidOrders;
 	}
 
+	@Override
+	public String toString() {
+		return "TimothyInstrument [instrumentId=" + instrumentId + ", name=" + name + "]";
+	}
+
 	
 	//setter and getter
 
