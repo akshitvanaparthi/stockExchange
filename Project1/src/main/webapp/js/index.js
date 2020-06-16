@@ -25,6 +25,9 @@ $(document).ready(function () {
 
     // ---- [ Order button POST event] ----------
 
+    /*   // since want to redirect to oreder_matched page, so disable these fn
+        //  also add `action` and `method` in the form tag, and chagne the button type to submit
+
     // bid order
     $("#submitBidOrder").click(function () {
         // $.post("performBuyMatch",$("#bidForm").serialize());
@@ -56,5 +59,6 @@ $(document).ready(function () {
             data: $("#cancelForm").serialize(),
         });
     })
+    */
 
 });
