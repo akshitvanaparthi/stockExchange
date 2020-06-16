@@ -196,8 +196,9 @@ public class AllController
   	}
      
      
-     //testing
-     @PostMapping({"/performBuyMatch","/performAskMatch","performCancelMatch"})
+     /*
+     //testing POST request with /performBuyMatch","/performAskMatch","/performCancelMatch 
+     @PostMapping({"/performBuyMatch","/performAskMatch","/performCancelMatch"})
      public ModelAndView testPostRequest(HttpServletRequest r,
    			@RequestParam("noOfShares") String noOfShares,
    			@RequestParam("priceLimit") String priceLimit) {
@@ -206,11 +207,13 @@ public class AllController
     	 	
     	 	
     	 	
-	 	//test only: incase you want to redirect to other page,
-    	 // you should return sth elese here
+	 	//test only: in case you want to redirect to other page,
+    	 // you should return sth else here
     	 return new ModelAndView("success");   
      }
+     */
      
+
      
     /* 
      @PostMapping("/performBuyMatch")
