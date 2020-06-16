@@ -198,6 +198,24 @@ public class AllController
   	}
      
      
+     /*
+     //testing POST request with /performBuyMatch","/performAskMatch","/performCancelMatch 
+     @PostMapping({"/performBuyMatch","/performAskMatch","/performCancelMatch"})
+     public ModelAndView testPostRequest(HttpServletRequest r,
+   			@RequestParam("noOfShares") String noOfShares,
+   			@RequestParam("priceLimit") String priceLimit) {
+    	 	
+    	 System.out.printf("noOfShares: %s, priceLimit: %s\n", noOfShares, priceLimit);
+    	 	
+    	 	
+    	 	
+	 	//test only: in case you want to redirect to other page,
+    	 // you should return sth else here
+    	 return new ModelAndView("success");   
+     }
+     */
+     
+
      
   
      @PostMapping("/performBuyMatch")
