@@ -227,6 +227,7 @@ public class AllController
 		else 
 		{
 			mv.setViewName("empty");
+			
 		}
   			
 		
