@@ -11,22 +11,24 @@
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/">
 
-
+    <!-- [Lib] Jquery lib -->
     <script src="https://code.jquery.com/jquery-3.5.1.js"
         integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 
 
-    <!-- AngularJS lib -->
+    <!-- [Lib] AngularJS lib -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 
+    
+    
+    <!-- [self-define]Jquery script -->
+    <script src="js/index.js"></script>
 
-    <!-- Bootstrap core CSS -->
+    
+    <!-- [Template]  Bootstrap core CSS lib -->
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
 
-
-
-
-
+    <!-- [Template]  this template custom style tag -->
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
@@ -43,8 +45,10 @@
             }
         }
     </style>
-    <!-- Custom styles for this template -->
+    <!-- [Template] Custom styles for this template -->
     <link href="css/dashboard.css" rel="stylesheet">
+
+
 </head>
 
 
@@ -148,7 +152,7 @@
                 </div>
 
 
-                <!-- The chart, can edit in the dashboard.js file  -->
+                <!-- The price chart, can edit in the dashboard.js file  -->
                 <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
 
 
@@ -222,6 +226,7 @@
     </div>
     <!-- end of the html UI code -->
 
+
     <!-- Will be moved to standlone js file later -->
     <!-- AngularJs -->
     <script>
@@ -242,74 +247,6 @@
     </script>
 
 
-
-
-
-    <!-- Will be moved to standlone js file later -->
-    <!-- Jquerry script -->
-    <script>
-        $(document).ready(function () {
-
-            // ---- [ Show differnet input option/button] ----------
-            // show Bid input
-            $("#bidButton").click(function () {
-                $('#bidContainer').show();
-                $('#askContainer').hide();
-                $('#cancelContainer').hide();
-            })
-
-            // show Ask input
-            $("#askButton").click(function () {
-                $('#bidContainer').hide();
-                $('#askContainer').show();
-                $('#cancelContainer').hide();
-            })
-
-            // show Cancel input
-            $("#cancelButton").click(function () {
-                $('#bidContainer').hide();
-                $('#askContainer').hide();
-                $('#cancelContainer').show();
-            })
-
-
-            // ---- [ Order button POST event] ----------
-
-            // bid order
-            $("#submitBidOrder").click(function () {
-                // $.post("performBuyMatch",$("#bidForm").serialize());
-                $.ajax({
-                    type: "POST",
-                    url: "performBuyMatch",
-                    data: $("#bidForm").serialize(),
-                });
-                // console.log($("#bidForm").serialize());
-            })
-
-            // ask order
-            $("#submitAskOrder").click(function () {
-                // console.log($("#askForm").serialize());
-                $.ajax({
-                    type: "POST",
-                    url: "performAskMatch",
-                    data: $("#askForm").serialize(),
-                });
-            })
-
-
-            // Cancel order
-            $("#submitCancelOrder").click(function () {
-                // console.log($("#askForm").serialize());
-                $.ajax({
-                    type: "POST",
-                    url: "performCancelMatch",
-                    data: $("#cancelForm").serialize(),
-                });
-            })
-
-        });
-
-    </script>
 
 
     <!-- Must put at the bottom of html file -->
