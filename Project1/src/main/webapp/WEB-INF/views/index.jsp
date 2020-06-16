@@ -233,16 +233,16 @@
 
         var app = angular.module('myApp', []);
         app.controller('Ctrl', function ($scope, $http) {
-            $http.get("http://localhost:8095/getbuyorders")
+            $http.get("/getbuyorders")
                 .then(function (response) {
                     $scope.buyorders = response.data;
                 });
 
-            $http.get("http://localhost:8095/getsellorders")
+            $http.get("/getsellorders")
                 .then(function (response) {
                     $scope.sellorders = response.data;
                 });
-        });
+        }); 
 
     </script>
 
