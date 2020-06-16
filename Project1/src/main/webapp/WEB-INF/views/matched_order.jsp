@@ -21,7 +21,6 @@ BuyOrder b = (BuyOrder)request.getAttribute("matchedBuyOrder");
 SellOrder s = (SellOrder)request.getAttribute("matchedSellOrder");
 
 
-
 %>
 <table>
 	<tr>
