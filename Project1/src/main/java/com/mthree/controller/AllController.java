@@ -7,11 +7,11 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mthree.model.BuyOrder;
@@ -20,7 +20,7 @@ import com.mthree.model.SellOrder;
 import com.mthree.model.User;
 import com.mthree.services.AllServices;
 
-@Controller
+@RestController
 @RequestMapping
 public class AllController 
 {
@@ -246,10 +246,8 @@ public class AllController
      @GetMapping("/getsellorders")
   	public List<SellOrder> getSell()
      {
-     	 
+    	 System.out.println(services.loadSell());
      	return services.loadSell();
-  		
-  		
   	 }
      
      
@@ -257,6 +255,7 @@ public class AllController
      
      @GetMapping("/getbuyorders")
    	public List<BuyOrder> getbuy(){
+    	 System.out.println(services.loadBuy());
    		return services.loadBuy();
    	} 
       
