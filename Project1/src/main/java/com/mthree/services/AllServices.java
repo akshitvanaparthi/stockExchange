@@ -5,11 +5,14 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import com.mthree.model.BuyOrder;
+import com.mthree.model.BuyOrderHistory;
 import com.mthree.model.OrderBook;
 import com.mthree.model.SellOrder;
 import com.mthree.model.User;
+import com.mthree.repositories.BuyOrderHistoryRepository;
 import com.mthree.repositories.BuyRepositary;
 import com.mthree.repositories.OrderBookRepository;
 import com.mthree.repositories.SellRepository;
@@ -28,6 +31,10 @@ public class AllServices
 	
 	@Autowired
 	private OrderBookRepository order;
+	
+	@Autowired
+	private BuyOrderHistoryRepository buyOrderHistoryRepository;
+	
 	
 	//**********************************
 	// Login and Registration
@@ -97,7 +104,12 @@ public class AllServices
 	}
     
     
+	//*********************************************
+	//Show Buy Order History record
     
+    public List<BuyOrderHistory> getAllBuyOrderHistory(){
+    	return buyOrderHistoryRepository.findAll();
+    }
     
     
     

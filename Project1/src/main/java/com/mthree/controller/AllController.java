@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mthree.model.BuyOrder;
+import com.mthree.model.BuyOrderHistory;
 import com.mthree.model.OrderBook;
 import com.mthree.model.SellOrder;
 import com.mthree.model.User;
@@ -301,5 +302,14 @@ public class AllController
 	    return services.loadBuyValues(buy_shares);
      }*/
      
-     
+ 	
+	//*********************************************
+	//Show Buy Order History record
+ 	
+ 	@GetMapping("/getAllBuyOrderHistory")
+ 	public List<BuyOrderHistory> getAllBuyOrderHistory() {
+ 		return services.getAllBuyOrderHistory();
+ 	}
+ 	
+    
 }
