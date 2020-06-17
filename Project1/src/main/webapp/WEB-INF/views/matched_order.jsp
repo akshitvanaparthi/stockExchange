@@ -16,7 +16,8 @@ BuyOrder b = (BuyOrder)request.getAttribute("matchedBuyOrder");
 
 ArrayList<SellOrder> s = (ArrayList<SellOrder>)request.getAttribute("matchedSellOrder");
 double total=0.0;
-
+double markupTotal =0.0;
+int totalShares=0;
 %>
 <!doctype html>
 <html lang="en">
@@ -121,7 +122,8 @@ double total=0.0;
                         <tbody>
 							<% 
 							for(SellOrder so : s){
-								total += so.getSellShares() * so.getAsk();
+                                total += so.getSellShares() * so.getAsk();
+                                totalShares += so.getSellShares();
 							%>
 								<tr>
 									<td><%=so.getSellId() %></td>
@@ -130,15 +132,23 @@ double total=0.0;
 									
 								</tr>
 								
-							<%}%> 
+                            <%
+                            }
+                            markupTotal = (totalShares > 100) ? total*1.01 :  total*1.02;
+                            
+                            %> 
 							<tr >
-								<td colspan="3">Total: <span id="totalPrice"><%=total%></span></td>
+								<td colspan="3">Total: 
+                                    <span id="totalPrice"><%=markupTotal%> </span>
+                                    (+ <%=(float)(markupTotal-total)%> feeLadder)
+                                    </td>
 								
 							</tr>
                         </tbody>
 					</table>
 					<button  type="button" class="btn btn-success" onclick="goBack()">Go Back</button>
- 
+                    <span style="margin-left: 10px;font-size: 10px;">* feeLadder: More than 100 shares:1%, otherwise, take 2% of total
+                    </span>
                 </div>
 
 
