@@ -29,7 +29,7 @@ public class AllController
      @Autowired
 	public AllServices services;
      
-     
+     //latestVersion
      
   // ---- [ Login ] ---
  	//redirect index page
