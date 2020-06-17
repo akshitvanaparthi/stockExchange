@@ -410,6 +410,22 @@ public class AllController
     public List<BuyOrder> getBuyValues(int buy_shares){
 	    return services.loadBuyValues(buy_shares);
      }*/
-     
+    
+ 	
+ 	
+ 	//cancel order
+ 	
+ 	@PostMapping("/sellcancel")
+ 	public void cancelsell(HttpServletRequest r,
+ 			@RequestParam("sellid") String sellid){
+ 		int i=Integer.parseInt(sellid);
+         services.deleterowbyid(i);
+ 	}
+ 	@PostMapping("/buycancel")
+ 	public void cancelbuy(HttpServletRequest r,
+ 			@RequestParam("buyid") String buyid){
+ 		int i=Integer.parseInt(buyid);
+         services.deleterowbyid1(i);
+ 	}
      
 }

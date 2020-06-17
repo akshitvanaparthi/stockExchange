@@ -164,5 +164,15 @@ public class AllServices
     	shistory.insertRowinBuyHistory(sellerid,buyerid,shares,bid);
     }
 
+    
+
+    //cancel order
+    public void deleterowbyid(int i) {
+		 sell.deleteById(i);
+	}
+
+	public void deleterowbyid1(int i) {
+		buy.deleteById(i);
+	}
 
 }
