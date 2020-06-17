@@ -216,9 +216,9 @@
                         </thead>
 
                         <tbody>
-                            <tr ng-repeat="x in buyorders">
-                                <td>{{x.buyShares}}</td>
-                                <td>{{x.bid}}</td>
+                            <tr ng-repeat="x in mainOrder">
+                                <td>{{buyorders[$index].buyShares}}</td>
+                                <td>{{buyorders[$index].bid}}</td>
                                 <td>{{sellorders[$index].ask}}</td>
                                 <td>{{sellorders[$index].sellShares }}</td>
                             </tr>
@@ -233,24 +233,6 @@
     <!-- end of the html UI code -->
 
 
-    <!-- Will be moved to standlone js file later -->
-    <!-- AngularJs -->
-    <script>
-
-        var app = angular.module('myApp', []);
-        app.controller('Ctrl', function ($scope, $http) {
-            $http.get("/getbuyorders")
-                .then(function (response) {
-                    $scope.buyorders = response.data;
-                });
-
-            $http.get("/getsellorders")
-                .then(function (response) {
-                    $scope.sellorders = response.data;
-                });
-        }); 
-
-    </script>
 
 
 

@@ -1,5 +1,29 @@
-$(document).ready(function () {
 
+    var app = angular.module('myApp', []);
+    app.controller('Ctrl', function ($scope, $http, $rootScope) {
+        $http.get("/getbuyorders")
+            .then(function (response) {
+                $scope.buyorders = response.data;
+            });
+
+        $http.get("/getsellorders")
+            .then(function (response) {
+                $scope.sellorders = response.data;
+                
+                if ($scope.sellorders.length >  $scope.buyorders.length ){
+                    $scope.mainOrder = $scope.sellorders ;
+                }else{
+                    $scope.mainOrder = $scope.buyorders ;
+                }
+
+                
+            });
+        
+        
+        
+    }); 
+$(document).ready(function () {
+    
     // ---- [ Show differnet input option/button] ----------
     // show Bid input
     $("#bidButton").click(function () {
