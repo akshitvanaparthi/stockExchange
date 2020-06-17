@@ -1,3 +1,4 @@
+
 package com.mthree.model;
 
 import javax.persistence.Entity;

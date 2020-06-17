@@ -1,3 +1,4 @@
+
 package com.mthree.repositories;
 
 import javax.transaction.Transactional;
@@ -19,3 +20,4 @@ public interface SellerHistoryRepo extends JpaRepository<SellerHistory,Integer>
 	public void insertRowinBuyHistory(@Param("sellerid") int sellerid,@Param("buyerid") int buyerid, @Param("shares") int shares,@Param("bid") float bid);
 
 }
+

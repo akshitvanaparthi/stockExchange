@@ -1,3 +1,4 @@
+
 package com.mthree.repositories;
 
 import javax.transaction.Transactional;
@@ -20,3 +21,5 @@ public interface BuyerHistoryRepo extends JpaRepository<BuyerHistory,Integer>
 	
 
 }
+
+

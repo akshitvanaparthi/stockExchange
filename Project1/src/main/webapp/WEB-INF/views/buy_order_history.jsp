@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v4.0.1">
-    <title>Dashboard</title>
+    <title>Buy Order History</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/">
 
@@ -22,7 +22,7 @@
     
     
     <!-- [self-define]Jquery script -->
-    <script src="js/index.js"></script>
+    <script src="js/buy_order_history.js"></script>
 
     
     <!-- [Template]  Bootstrap core CSS lib -->
@@ -83,9 +83,9 @@
                 <div class="sidebar-sticky pt-3">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">
+                            <a class="nav-link" href="/">
                                 <span data-feather="home"></span>
-                                Dashboard
+                                Dashboard 
                             </a>
                         </li>
                     <!-- 
@@ -108,7 +108,7 @@
                     </h6>
                     <ul class="nav flex-column mb-2">
                         <li class="nav-item">
-                            <a class="nav-link" href="/buy_order_history">
+                            <a class="nav-link active" href="#">
                                 <span data-feather="file-text"></span>
                                 Buy Order Record
                             </a>
@@ -161,66 +161,24 @@
 
 
                 <!-- table bid ask cancale order button-->
-                <table>
-                    <tr class="td">
-                        <td>
-                            <h2>Order Book</h2>
-                        </td>
-                        <td>
-                            <div style="margin-left: 70px;">
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" id="bidButton" class="btn btn-light">Bid</button>
-                                    <button type="button" id="askButton" class="btn btn-light">Ask</button>
-                                    <button type="button" id="cancelButton" class="btn btn-light">Cancel</button>
-                                  </div>
-
-
-                                <div id="bidContainer" style="margin-bottom: 10px;visibility: visible">
-                                    <form id="bidForm" method ="post" action="/performBuyMatch">
-                                        price: <input name="priceLimit" id="" type="number" class="" step="0.01" style="height: 35px;">
-                                        volume: <input name="noOfShares" id="" type="number" class="" style="height: 35px;">
-                                        <button type="submit" class="btn btn-primary" id="submitBidOrder">Bid</button>
-                                    </form>
-                                </div>
-
-                                <div id="askContainer" style="margin-bottom: 10px;display: none;">
-                                    <form id="askForm" method ="post" action="/performSellMatch">
-                                        price: <input name="priceLimit" type="number" class="" step="0.01" style="height: 35px;">
-                                        volume:<input name="noOfShares" type="number" class="" style="height: 35px;">
-                                        <button type="submit" class="btn btn-danger" id="submitAskOrder">Ask</button>
-                                    </form>
-                                </div>
-
-                                <div id="cancelContainer" style="margin-bottom: 10px;display: none;">
-                                    <form id="cancelForm">
-                                        price: <input name="priceLimit" type="number" class="" step="0.01" style="height: 35px;">
-                                        volume: <input name="noOfShares" type="number" class="" style="height: 35px;">
-                                        <button type="submit" class="btn btn-secondary" id="submitCancelOrder">cancel</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
+                <h2>Order Book</h2>
 
                 <!-- order book table -->
                 <div class="table-responsive">
                     <table class="table table-striped table-sm">
                         <thead>
                             <tr>
-                                <th>Bid Volume</th>
+                                <th>Buy Order History Id</th>
+                                <th>Bid Shares</th>
                                 <th>Bid Price</th>
-                                <th>Ask Price</th>
-                                <th>Ask Volume</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            <tr ng-repeat="x in buyorders">
+                            <tr ng-repeat="x in buyOrderHistory">
+                                <td>{{x.buyOrderHistoryId}}</td>
                                 <td>{{x.buyShares}}</td>
                                 <td>{{x.bid}}</td>
-                                <td>{{sellorders[$index].ask}}</td>
-                                <td>{{sellorders[$index].sellShares }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -237,18 +195,7 @@
     <!-- AngularJs -->
     <script>
 
-        var app = angular.module('myApp', []);
-        app.controller('Ctrl', function ($scope, $http) {
-            $http.get("/getbuyorders")
-                .then(function (response) {
-                    $scope.buyorders = response.data;
-                });
 
-            $http.get("/getsellorders")
-                .then(function (response) {
-                    $scope.sellorders = response.data;
-                });
-        }); 
 
     </script>
 
