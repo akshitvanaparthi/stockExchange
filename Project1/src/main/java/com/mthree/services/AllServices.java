@@ -90,9 +90,9 @@ public class AllServices
     
     
     
-    public SellOrder buyOrderMatch(int noOfShares, float priceLimit)
+    public List<SellOrder> buyOrderMatch(float priceLimit)
     {
-		return sell.buyOrderMatch(noOfShares, priceLimit);
+		return sell.buyOrderMatch(priceLimit);
 
 	}
     

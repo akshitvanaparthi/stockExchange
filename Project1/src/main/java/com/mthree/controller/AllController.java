@@ -1,5 +1,6 @@
 package com.mthree.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -67,6 +68,7 @@ public class AllController
  		r.getSession().invalidate();
  		return new ModelAndView("login"); 
  	}
+ 	
  	
  	@PostMapping("/login")
  	public ModelAndView loginUser(HttpServletRequest r,
@@ -195,7 +197,35 @@ public class AllController
      }
      */
      
-
+     public ArrayList<SellOrder> sharesLoop(int shares,float priceLimit)
+     {
+	   	  //int shareValue=0;
+	      List<SellOrder> sharesList= services.buyOrderMatch(priceLimit);
+	      
+	      ArrayList<SellOrder> matchedList=new ArrayList<SellOrder>();
+	      
+	  	  for(int i=0;i<sharesList.size();i++)
+	  	  {
+				if(shares==sharesList.get(i).getSellShares())
+				{
+					matchedList.add(new SellOrder(sharesList.get(i).getSellId(),sharesList.get(i).getSellShares(),sharesList.get(i).getAsk()));
+					break;
+				}
+				else if(shares>sharesList.get(i).getSellShares())
+				{
+			        shares=shares-sharesList.get(i).getSellShares();
+			        matchedList.add(new SellOrder(sharesList.get(i).getSellId(),sharesList.get(i).getSellShares(),sharesList.get(i).getAsk()));
+			        
+				}
+				else
+				{
+					matchedList.add(new SellOrder(sharesList.get(i).getSellId(),shares,sharesList.get(i).getAsk()));
+					break;
+				}
+		
+	  	  }
+	  	  return matchedList;
+  	 }
      
   
      @PostMapping("/performBuyMatch")
@@ -206,18 +236,17 @@ public class AllController
     	 int noOfShares = Integer.parseInt(noOfShares1);
     	 float priceLimit = Integer.parseInt(priceLimit1);
     	 
-    	 System.out.println(noOfShares);
-    	 System.out.println(priceLimit);
-    	 
     	 Random rand = new Random();
     	 
     	int buyerId = rand.nextInt(10000);
     	
+    	ArrayList<SellOrder> matchedSellOrder=sharesLoop(noOfShares,priceLimit);
     	
-  		SellOrder matchedSellOrder = services.buyOrderMatch(noOfShares, priceLimit);
-  		System.out.println("hello");
+  		//SellOrder matchedSellOrder = services.buyOrderMatch(noOfShares, priceLimit);
+  		//System.out.println("hello");
+    	
   		ModelAndView mv = new ModelAndView();
-  		if(matchedSellOrder !=null) 
+  		if(matchedSellOrder.size() > 0) 
   		{
   			
   			BuyOrder matchedBuyOrder=new BuyOrder(buyerId,noOfShares,priceLimit);
@@ -230,13 +259,12 @@ public class AllController
 		}
 		else 
 		{
-			mv.setViewName("empty");
-			
+			mv.setViewName("empty");	
 		}
   			
 		
 		return mv;
-	
+		
   		
   	}
      

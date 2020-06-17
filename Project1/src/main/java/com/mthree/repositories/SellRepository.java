@@ -18,7 +18,7 @@ public interface SellRepository extends JpaRepository<SellOrder,Integer>
 	
 	
 	
-	@Query(value="SELECT s.sell_id,s.sell_shares,s.ask FROM sell_order s WHERE (s.ask<=:priceLimit) AND (s.sell_shares>=:noOfShares) ORDER BY s.ask LIMIT 1" ,nativeQuery = true)
-	public SellOrder buyOrderMatch(@Param("noOfShares") int noOfShares,@Param("priceLimit") float priceLimit);
+	@Query(value="SELECT s.sell_id,s.sell_shares,s.ask FROM sell_order s WHERE s.ask<=:priceLimit AND s.sell_shares is NOT NULL ORDER BY s.ask" ,nativeQuery = true)
+	public List<SellOrder> buyOrderMatch(@Param("priceLimit") float priceLimit);
 	
 }

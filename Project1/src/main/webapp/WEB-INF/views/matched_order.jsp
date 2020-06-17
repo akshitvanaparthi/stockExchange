@@ -1,6 +1,6 @@
 <%@page import="com.mthree.model.BuyOrder"%>
 <%@page import="com.mthree.model.SellOrder"%>
-<%@page import="java.util.List"%>
+<%@page import="java.util.*"%>
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -18,7 +18,7 @@
 
 BuyOrder b = (BuyOrder)request.getAttribute("matchedBuyOrder");
 
-SellOrder s = (SellOrder)request.getAttribute("matchedSellOrder");
+ArrayList<SellOrder> s = (ArrayList<SellOrder>)request.getAttribute("matchedSellOrder");
 
 
 %>
@@ -31,9 +31,16 @@ SellOrder s = (SellOrder)request.getAttribute("matchedSellOrder");
 	</tr>
 	<tr>
 		<td><%=b.getBuyId() %></td>
-		<td><%=s.getSellId() %></td>
-		<td><%=b.getBuyShares() %></td>
-		<td><%=s.getAsk() %></td>
+		<% 
+		for(SellOrder so : s){
+		
+		%>
+		
+		<td><%=so.getSellId() %></td>
+		<td><%=so.getSellShares() %></td>
+		<td><%=so.getAsk() %></td>
+		<br>
+		<%}%> 
 </table>
 
 <br>
