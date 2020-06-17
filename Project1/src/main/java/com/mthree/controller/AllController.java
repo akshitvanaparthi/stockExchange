@@ -197,33 +197,46 @@ public class AllController
      }
      */
      
-     public ArrayList<SellOrder> sharesLoop(int shares,float priceLimit)
+     public ArrayList<SellOrder> sharesLoop(int shares,float priceLimit,BuyOrder m)
      {
 	   	  //int shareValue=0;
 	      List<SellOrder> sharesList= services.buyOrderMatch(priceLimit);
 	      
 	      ArrayList<SellOrder> matchedList=new ArrayList<SellOrder>();
-	      
+	      int flag=0;
 	  	  for(int i=0;i<sharesList.size();i++)
 	  	  {
+	  		  flag++;
 				if(shares==sharesList.get(i).getSellShares())
 				{
 					matchedList.add(new SellOrder(sharesList.get(i).getSellId(),sharesList.get(i).getSellShares(),sharesList.get(i).getAsk()));
+					services.deleterowfromsellorder(sharesList.get(i).getSellId());
+					shares = 0;
 					break;
 				}
 				else if(shares>sharesList.get(i).getSellShares())
 				{
 			        shares=shares-sharesList.get(i).getSellShares();
 			        matchedList.add(new SellOrder(sharesList.get(i).getSellId(),sharesList.get(i).getSellShares(),sharesList.get(i).getAsk()));
-			        
+			        services.deleterowfromsellorder(sharesList.get(i).getSellId());
 				}
 				else
 				{
 					matchedList.add(new SellOrder(sharesList.get(i).getSellId(),shares,sharesList.get(i).getAsk()));
+					int shares1 = sharesList.get(i).getSellShares() - shares;
+					services.updaterowfromsellorder(shares1,sharesList.get(i).getSellId());
+					
+					shares =0;
 					break;
 				}
 		
 	  	  }
+	  	  
+	  	  if(flag !=0 && shares !=0 )
+	  	  {
+	  		services.insertrowinbuyorder(m.getBuyId(),m.getBid(),shares);
+	  	  }
+	  	  
 	  	  return matchedList;
   	 }
      
@@ -240,17 +253,22 @@ public class AllController
     	 
     	int buyerId = rand.nextInt(10000);
     	
-    	ArrayList<SellOrder> matchedSellOrder=sharesLoop(noOfShares,priceLimit);
+    	BuyOrder matchedBuyOrder=new BuyOrder(buyerId,noOfShares,priceLimit);
     	
-  		//SellOrder matchedSellOrder = services.buyOrderMatch(noOfShares, priceLimit);
-  		//System.out.println("hello");
+    	
+    	
+    	ArrayList<SellOrder> matchedSellOrder=sharesLoop(noOfShares,priceLimit, matchedBuyOrder);
+    	
+    	for(SellOrder m : matchedSellOrder)
+    	{
+    		services.buyerHistory(buyerId,m.getSellId(),m.getSellShares(),m.getAsk());
+    	}
+    	
+  		
     	
   		ModelAndView mv = new ModelAndView();
   		if(matchedSellOrder.size() > 0) 
   		{
-  			
-  			BuyOrder matchedBuyOrder=new BuyOrder(buyerId,noOfShares,priceLimit);
-  			
   			
   			mv.setViewName("matched_order");
   			mv.addObject("matchedSellOrder", matchedSellOrder);
@@ -259,6 +277,7 @@ public class AllController
 		}
 		else 
 		{
+			services.insertrowinbuyorder(matchedBuyOrder.getBuyId(),matchedBuyOrder.getBid(),matchedBuyOrder.getBuyShares());
 			mv.setViewName("empty");	
 		}
   			
@@ -267,6 +286,96 @@ public class AllController
 		
   		
   	}
+     
+     
+     
+     
+     public ArrayList<BuyOrder> sharesBuyLoop(int shares,float priceLimit,SellOrder m)
+     {
+     	List<BuyOrder> sharesList=  services.sellOrderMatch(priceLimit);  
+     	ArrayList<BuyOrder> matchedBuyList=new ArrayList<BuyOrder>();
+ 	      int flag = 0;
+ 	  	  for(int i=0;i<sharesList.size();i++)
+ 	  	  {
+ 	  		  flag++;
+ 				if(shares==sharesList.get(i).getBuyShares())
+ 				{
+ 					matchedBuyList.add(new BuyOrder(sharesList.get(i).getBuyId(),sharesList.get(i).getBuyShares(),sharesList.get(i).getBid()));
+ 					services.deleterowfrombuyorder(sharesList.get(i).getBuyId());
+ 					shares=0;
+ 					break;
+ 				}
+ 				else if(shares>sharesList.get(i).getBuyShares())
+ 				{
+ 			        shares=shares-sharesList.get(i).getBuyShares();
+ 			        matchedBuyList.add(new BuyOrder(sharesList.get(i).getBuyId(),sharesList.get(i).getBuyShares(),sharesList.get(i).getBid()));
+ 			       services.deleterowfrombuyorder(sharesList.get(i).getBuyId());
+ 				}
+ 				else
+ 				{
+ 					matchedBuyList.add(new BuyOrder(sharesList.get(i).getBuyId(),shares,sharesList.get(i).getBid()));
+ 					int shares1 = sharesList.get(i).getBuyShares()-shares;
+ 					services.updaterowfrombuyorder(shares1,sharesList.get(i).getBuyId());
+ 					shares=0;
+ 					break;
+ 				}
+ 		
+ 	  	  }
+ 	  	  if(flag!=0 && shares!=0)
+ 	  	  {
+ 	  		services.insertrowinsellorder(m.getSellId(),m.getAsk(),shares);
+ 	  	  }
+ 	  	  
+ 	  	  return matchedBuyList;
+  	 }
+     
+     
+     
+     
+     @PostMapping("/performSellMatch")
+  	public ModelAndView sellOrderMatch(HttpServletRequest r,
+  			@RequestParam("noOfShares") String noOfShares1,
+  			@RequestParam("priceLimit") String priceLimit1)
+     {
+    	 int noOfShares = Integer.parseInt(noOfShares1);
+    	 float priceLimit = Integer.parseInt(priceLimit1);
+    	 
+    	 Random rand = new Random();
+    	 
+    	int sellerId = rand.nextInt(10000);
+    	
+    	SellOrder matchedSellOrder=new SellOrder(sellerId,noOfShares,priceLimit);
+    	
+    	
+    	ArrayList<BuyOrder> matchedBuyOrder=sharesBuyLoop(noOfShares,priceLimit,matchedSellOrder);
+    	
+    	for(BuyOrder m : matchedBuyOrder)
+    	{
+    		services.sellerHistory(sellerId,m.getBuyId(),m.getBuyShares(),m.getBid());
+    	}
+    	
+  		//SellOrder matchedSellOrder = services.buyOrderMatch(noOfShares, priceLimit);
+  		//System.out.println("hello");
+    	
+  		ModelAndView mv = new ModelAndView();
+  		if(matchedBuyOrder.size() > 0) 
+  		{
+  			
+  			mv.setViewName("matched_SellOrder");
+  			mv.addObject("matchedSellOrder", matchedSellOrder);
+  			mv.addObject("matchedBuyOrder", matchedBuyOrder);
+  				
+ 		}
+ 		else 
+ 		{
+ 			services.insertrowinsellorder(matchedSellOrder.getSellId(),matchedSellOrder.getAsk(),matchedSellOrder.getSellShares());
+ 			mv.setViewName("empty");	
+ 		}
+  			
+ 		
+ 		return mv;	
+  	}
+     
      
      
      

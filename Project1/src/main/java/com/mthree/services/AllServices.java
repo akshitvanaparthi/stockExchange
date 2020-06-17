@@ -11,8 +11,10 @@ import com.mthree.model.OrderBook;
 import com.mthree.model.SellOrder;
 import com.mthree.model.User;
 import com.mthree.repositories.BuyRepositary;
+import com.mthree.repositories.BuyerHistoryRepo;
 import com.mthree.repositories.OrderBookRepository;
 import com.mthree.repositories.SellRepository;
+import com.mthree.repositories.SellerHistoryRepo;
 import com.mthree.repositories.UserRepository;
 
 
@@ -28,6 +30,15 @@ public class AllServices
 	
 	@Autowired
 	private OrderBookRepository order;
+	
+	
+	@Autowired
+	private BuyerHistoryRepo bhistory;
+	
+	@Autowired
+	private SellerHistoryRepo shistory;
+	
+	
 	
 	//**********************************
 	// Login and Registration
@@ -96,11 +107,62 @@ public class AllServices
 
 	}
     
+    public List<BuyOrder> sellOrderMatch(float priceLimit)
+    {
+		return buy.sellOrderMatch(priceLimit);
+
+	}
     
     
     
     
+    public void deleterowfromsellorder(int sellerid)
+    {
+    	sell.deleterowfromsellorder(sellerid);
+    }
+    
+    public void updaterowfromsellorder(int shares,int sellerid)
+    {
+    	sell.updaterowfromsellorder(shares,sellerid);
+    }
+    
+    public void insertrowinbuyorder(int buyerid, float bid, int shares)
+    {
+    	buy.insertrowinbuyorder(buyerid,bid,shares);
+    }
     
     
+    
+    public void deleterowfrombuyorder(int buyerid)
+    {
+    	buy.deleterowfrombuyorder(buyerid);
+    }
+    
+    public void updaterowfrombuyorder(int shares,int buyerid)
+    {
+    	buy.updaterowfrombuyorder(shares,buyerid);
+    }
+    
+    public void insertrowinsellorder(int sellerid, float ask, int shares)
+    {
+    	sell.insertrowinsellorder(sellerid,ask,shares);
+    }
+    
+    
+    
+    
+    //History
+    
+    public void buyerHistory(int buyerid,int sellerid,int shares, float ask )
+    {
+    	bhistory.insertRowinBuyHistory(buyerid,sellerid,shares,ask);
+    }
+    
+    
+    public void sellerHistory(int sellerid,int buyerid,int shares, float bid )
+    {
+    	shistory.insertRowinBuyHistory(sellerid,buyerid,shares,bid);
+    }
+
 
 }
