@@ -164,9 +164,11 @@
                         </td>
                         <td>
                             <div style="margin-left: 70px;">
-                                <button type="button" id="bidButton" class="btn btn-light">Bid</button>
-                                <button type="button" id="askButton" class="btn btn-light">Ask</button>
-                                <button type="button" id="cancelButton" class="btn btn-light">Cancel</button>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" id="bidButton" class="btn btn-light">Bid</button>
+                                    <button type="button" id="askButton" class="btn btn-light">Ask</button>
+                                    <button type="button" id="cancelButton" class="btn btn-light">Cancel</button>
+                                  </div>
 
 
                                 <div id="bidContainer" style="margin-bottom: 10px;visibility: visible">

@@ -106,7 +106,7 @@ double total=0.0;
 
                 <!-- table bid ask cancale order button-->
                 
-				<h3>State: success %nbsp;<img src="http://www.turanus.com/images/joomlart/banners/html5-icon.png" style="height: 30px;"></h3>
+				<h3>State: success <img src="http://www.turanus.com/images/joomlart/banners/html5-icon.png" style="height: 30px;"></h3>
                 <!-- order book table -->
                 <div class="table-responsive">
                     <table class="table table-striped table-sm">
