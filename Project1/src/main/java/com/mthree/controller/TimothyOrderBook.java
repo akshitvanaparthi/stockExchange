@@ -2,7 +2,9 @@ package com.mthree.controller;
 
 import java.util.List;
 
+import com.mthree.dto.TimothyAskOrderDTO;
 import com.mthree.dto.TimothyBidOrderDTO;
+import com.mthree.model.TimothyAskOrder;
 import com.mthree.model.TimothyBidOrder;
 import com.mthree.model.TimothyInstrument;
 import com.mthree.services.TimothyService;
@@ -19,6 +21,13 @@ public class TimothyOrderBook {
 	
 	List<TimothyBidOrder> bidOrders;
 	
+	List<TimothyBidOrderDTO> timothyBidOrderDTOs;
+	
+	List<TimothyAskOrder> askOrders;
+	
+	List<TimothyAskOrderDTO> timothyAskOrderDTOs;
+	
+	//constructor
 	public TimothyOrderBook(){}
 	
 
@@ -37,29 +46,24 @@ public class TimothyOrderBook {
 				);
 		
 		//find Instrument bid orders
-		System.out.println(timothyService.getBidOrdersByInstrument(timothyInstrument));
-		setBidOrders(timothyService.getBidOrdersByInstrument(timothyInstrument)); //work but also getthe username and password
+//		setBidOrders(timothyService.getBidOrdersByInstrument(timothyInstrument)); //work but also getthe username and password
 	
-		
-//		System.out.println(timothyService.getBidOrdersByInstrument2(timothyInstrument));
-	
-		System.out.println(timothyService.getBidOrdersByInstrument3(timothyInstrument).get(0));
-		
-		setTimothyBidOrderDTOs(timothyService.getBidOrdersByInstrument3(timothyInstrument)); 
+		setTimothyBidOrderDTOs(timothyService.getBidOrdersDTOByInstrument(timothyInstrument)); 
 		
 	}
 
-//	List<TimothyBidOrderDTO> timothyUserDTO;
 	
-	List<TimothyBidOrderDTO[]> timothyBidOrderDTOs;
 	
 
-	public synchronized List<TimothyBidOrderDTO[]> getTimothyBidOrderDTOs() {
+	
+	
+	//getter and setter
+	public synchronized List<TimothyBidOrderDTO> getTimothyBidOrderDTOs() {
 		return timothyBidOrderDTOs;
 	}
 
 
-	public synchronized void setTimothyBidOrderDTOs(List<TimothyBidOrderDTO[]> timothyBidOrderDTOs) {
+	public synchronized void setTimothyBidOrderDTOs(List<TimothyBidOrderDTO> timothyBidOrderDTOs) {
 		this.timothyBidOrderDTOs = timothyBidOrderDTOs;
 	}
 

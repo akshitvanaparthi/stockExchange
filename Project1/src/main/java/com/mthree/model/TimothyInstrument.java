@@ -24,26 +24,42 @@ public class TimothyInstrument {
 	private String name;
 
 	@OneToMany(mappedBy = "instrument")
-	private List<TimothyAskOrder> bidOrders;
+	private List<TimothyBidOrder> bidOrders;
+	
+	@OneToMany(mappedBy = "instrument")
+	private List<TimothyAskOrder> askOrders;
 
 	
+	double currentStockPrice;
 	
 	// constructor
-	public TimothyInstrument(int timothyInstrumentId, String name, List<TimothyAskOrder> bidOrders) {
-		super();
-		this.instrumentId = timothyInstrumentId;
-		this.name = name;
-		this.bidOrders = bidOrders;
-	}
 	
 	public TimothyInstrument() {}
 
-	public synchronized int getTimothyInstrumentId() {
+	
+	
+	
+	
+	
+	public TimothyInstrument(int instrumentId, String name, List<TimothyBidOrder> bidOrders,
+			List<TimothyAskOrder> askOrders, double currentStockPrice) {
+		super();
+		this.instrumentId = instrumentId;
+		this.name = name;
+		this.bidOrders = bidOrders;
+		this.askOrders = askOrders;
+		this.currentStockPrice = currentStockPrice;
+	}
+
+
+
+
+	public synchronized int getInstrumentId() {
 		return instrumentId;
 	}
 
-	public synchronized void setTimothyInstrumentId(int timothyInstrumentId) {
-		this.instrumentId = timothyInstrumentId;
+	public synchronized void setInstrumentId(int instrumentId) {
+		this.instrumentId = instrumentId;
 	}
 
 	public synchronized String getName() {
@@ -54,21 +70,32 @@ public class TimothyInstrument {
 		this.name = name;
 	}
 
-	public synchronized List<TimothyAskOrder> getBidOrders() {
+	public synchronized List<TimothyBidOrder> getBidOrders() {
 		return bidOrders;
 	}
 
-	public synchronized void setBidOrders(List<TimothyAskOrder> bidOrders) {
+	public synchronized void setBidOrders(List<TimothyBidOrder> bidOrders) {
 		this.bidOrders = bidOrders;
 	}
 
-	@Override
-	public String toString() {
-		return "TimothyInstrument [instrumentId=" + instrumentId + ", name=" + name + "]";
+	public synchronized List<TimothyAskOrder> getAskOrders() {
+		return askOrders;
 	}
 
+	public synchronized void setAskOrders(List<TimothyAskOrder> askOrders) {
+		this.askOrders = askOrders;
+	}
+
+	public synchronized double getCurrentStockPrice() {
+		return currentStockPrice;
+	}
+
+	public synchronized void setCurrentStockPrice(double currentStockPrice) {
+		this.currentStockPrice = currentStockPrice;
+	}
 	
-	//setter and getter
+	
+
 
 	
 }

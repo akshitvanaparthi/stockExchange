@@ -41,20 +41,15 @@ public class TimothyService {
 	}
 	
 	
-	//find bidOrder by instrument
+	//find all bidOrder by instrument
 	public List<TimothyBidOrder> getBidOrdersByInstrument(TimothyInstrument t){
-		return timothyBidOrderRepo.findByInstrument(t);
+		return timothyBidOrderRepo.findAllByInstrument(t);
 	}
 	
 	
-	
-	public List<Object[]> getBidOrdersByInstrument2(TimothyInstrument t){
-		return timothyBidOrderRepo.dfindByInstrumentaa(t);
-
-	}
-	
-	public List<TimothyBidOrderDTO[]> getBidOrdersByInstrument3(TimothyInstrument t){
-		return timothyBidOrderRepo.dfindByInstrumentaaaa(t);
+	//find all bidOrder by instrument DTO!!
+	public List<TimothyBidOrderDTO> getBidOrdersDTOByInstrument(TimothyInstrument t){
+		return timothyBidOrderRepo.findBidOrdersDTOByInstrument(t);
 
 	}
 }

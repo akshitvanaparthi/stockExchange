@@ -34,7 +34,25 @@ public class TimothyAskOrder {
 	TimothyInstrument instrument; 
 
 
+	int state; // 1: matched, 2: active, 3: pending, 4:cancelled 
+	
 	public TimothyAskOrder() {	}
+	
+	
+	
+
+	public TimothyAskOrder(int id, User users, double price, int volume, TimothyInstrument instrument, int state) {
+		super();
+		this.id = id;
+		this.users = users;
+		this.price = price;
+		this.volume = volume;
+		this.instrument = instrument;
+		this.state = state;
+	}
+
+
+
 
 	public synchronized int getId() {
 		return id;

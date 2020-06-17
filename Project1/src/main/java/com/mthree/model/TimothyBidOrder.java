@@ -29,13 +29,26 @@ public class TimothyBidOrder {
 
 	double price;
 	int volume;
-	
+
 	@ManyToOne
-	@JoinColumn(name="instrumen_id")
-	TimothyInstrument instrument; 
+	@JoinColumn(name = "instrumen_id")
+	TimothyInstrument instrument;
 
+	int state; // 1: matched, 2: active, 3: pending, 4:cancelled 
 
-	public TimothyBidOrder() {	}
+	public TimothyBidOrder(int id, User users, double price, int volume, TimothyInstrument instrument, int state) {
+		super();
+		this.id = id;
+		this.users = users;
+		this.price = price;
+		this.volume = volume;
+		this.instrument = instrument;
+		this.state = state;
+	}
+
+	public TimothyBidOrder() {
+		super();
+	}
 
 	public synchronized int getId() {
 		return id;
@@ -69,11 +82,22 @@ public class TimothyBidOrder {
 		this.volume = volume;
 	}
 
-	@Override
-	public String toString() {
-		return "TimothyBidOrder [id=" + id + ", users=" + users + ", price=" + price + ", volume=" + volume
-				+ ", instrument=" + instrument + "]";
+	public synchronized TimothyInstrument getInstrument() {
+		return instrument;
 	}
+
+	public synchronized void setInstrument(TimothyInstrument instrument) {
+		this.instrument = instrument;
+	}
+
+	public synchronized int getState() {
+		return state;
+	}
+
+	public synchronized void setState(int state) {
+		this.state = state;
+	}
+	
 	
 
 }

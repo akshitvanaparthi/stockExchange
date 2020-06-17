@@ -15,14 +15,18 @@ import com.mthree.model.TimothyInstrument;
 @Repository
 public interface TimothyBidOrderRepo extends JpaRepository<TimothyBidOrder, Integer> {
 
-	public List<TimothyBidOrder> findByInstrument(TimothyInstrument ti);
+	public List<TimothyBidOrder> findAllByInstrument(TimothyInstrument ti);
 
-	@Query("SELECT b.price, b.volume FROM TimothyBidOrder b WHERE b.instrument = :instrument ")
-	public List<Object[]> dfindByInstrumentaa(@Param("instrument") TimothyInstrument t);
+//	@Query("SELECT b.price, b.volume FROM TimothyBidOrder b WHERE b.instrument = :instrument ")
+//	public List<Object[]> dfindByInstrumentaa(@Param("instrument") TimothyInstrument t);
 	
-//	@Query("SELECT new com.mthree.dto.TimothyBidOrderDTO(b.id, b.userId,  b.price, b.volume, b.Instrument) FROM TimothyBidOrder b")
-	@Query("SELECT new com.mthree.dto.TimothyBidOrderDTO(b.id, u.id) FROM TimothyBidOrder b INNER JOIN b.users u ON")
-	public List<TimothyBidOrderDTO[]> dfindByInstrumentaaaa(@Param("instrument") TimothyInstrument t);
+	
+//	public TimothyBidOrderDTO(int id, int userId, double price, int volume, int imothyInstrumentId) {
+	@Query("SELECT new com.mthree.dto.TimothyBidOrderDTO("
+				+ "b.id, b.users.id, b.price, b.volume, b.instrument.id, b.state) "
+			+ "FROM TimothyBidOrder b WHERE instrument = :instrument "
+			)
+	public List<TimothyBidOrderDTO> findBidOrdersDTOByInstrument(@Param("instrument") TimothyInstrument t);
 
 	
 }
