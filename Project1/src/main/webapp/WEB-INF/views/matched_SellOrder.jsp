@@ -7,27 +7,28 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 	
-
-
 <%
 
 SellOrder s = (SellOrder)request.getAttribute("matchedSellOrder");
 
 ArrayList<BuyOrder> b = (ArrayList<BuyOrder>)request.getAttribute("matchedBuyOrder");
 
+
 double total=0.0;
 double markupTotal =0.0;
 int totalShares=0;
+	
 %>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
+
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v4.0.1">
-    <title>Matched Sell Order </title>
+    <title>Matched Sell Order</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/">
 
@@ -65,14 +66,16 @@ int totalShares=0;
     <!-- [Template] Custom styles for this template -->
     <link href="css/dashboard.css" rel="stylesheet">
 
+
 </head>
+
 <body>
  <!-- Start  of the html UI code -->
 
 
     <!-- Top pannel, including search bar and sign out  -->
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">Seller Id: <%= s.getSellId() %></a>
+        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">Seller Id:<%=s.getSellId() %></a>
         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse"
             data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -85,98 +88,63 @@ int totalShares=0;
         </ul>
     </nav>
 
+	<div class="container-fluid">
+        <div class="row">
 
-<div class="container-fluid">
-	<div class="row">
+           
 
-	   
+            <!-- Main pannel, show figure and table -->
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Matched Order: Apple Inc.</h1>
+                    
+                </div>
 
-		<!-- Main pannel, show figure and table -->
-		<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-			<div
-				class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-				<h1 class="h2">Matched Order: Apple Inc.</h1>
-				
-			</div>
-
-			<!-- table bid ask cancale order button-->
+                <!-- table bid ask cancale order button-->
+                
+				<h3>State: success <img src="http://www.turanus.com/images/joomlart/banners/html5-icon.png" style="height: 30px;"></h3>
+                <!-- order book table -->
+                <div class="table-responsive">
+                    <table class="table table-striped table-sm">
+	<tr>
+		<th>BUYER ID</th>
+		<th>VOLUME</th>
+		<th>TRADED PRICE</th>
+	</tr>
+	<% 
+	for(BuyOrder list : b){
+		total += list.getBuyShares() * list.getBid();
+		totalShares += list.getBuyShares();
+		%>
+		<tr>
 			
-			<h3>State: success <img src="http://www.turanus.com/images/joomlart/banners/html5-icon.png" style="height: 30px;"></h3>
-			<!-- order book table -->
-			<div class="table-responsive">
+			<td><%=list.getBuyId() %></td>
+			<td><%=list.getBuyShares() %></td>
+			<td><%=list.getBid() %></td>
+		</tr>
+		<%
+			}
+			markupTotal = (totalShares > 100) ? total/1.01 :  total/1.02;
+		%> 
+
+		<tr >
+			<td colspan="3">Total: 
+				<span id="totalPrice"><%=markupTotal%> </span>
+				(- <%=(float)(total- markupTotal)%> feeLadder)
+				</td>
+			
+		</tr>
+
+	</table>
+	<button  type="button" class="btn btn-success" onclick="goBack()">Go Back</button>
+	<span style="margin-left: 10px;font-size: 10px;">* feeLadder: More than 100 shares:1%, otherwise, take 2% of total
+	</span>
+</div>
 
 
-
-
-
-				<table>
-					<tr>
-						<th>BUYER ID</th>
-						<th>SELLER ID</th>
-						<th>VOLUME</th>
-						<th>TRADED PRICE</th>
-					</tr>
-					<tr>
-						<td><%=s.getSellId() %></td>
-						<% 
-						for(BuyOrder list : b){
-						
-						%>
-						
-						<td><%=list.getBuyId() %></td>
-						<td><%=list.getBuyShares() %></td>
-						<td><%=list.getBid() %></td>
-						<br>
-						<%}%> 
-				</table>
-				
-
-
-
-				<table class="table table-striped table-sm">
-					<thead>
-						<tr>
-							<th>SELLER ID</th>
-							<th>VOLUME</th>
-							<th>TRADED PRICE</th>
-						</tr>
-					</thead>
-
-					<tbody>
-						<% 
-						for(BuyOrder list : b){
-							total += list.getBuyShares() * list.getBid();
-							totalShares += so.getBuyShares();
-						%>
-							<tr>
-								<td><%=list.getBuyId() %></td>
-								<td><%=list.getBuyShares() %></td>
-								<td><%=list.getBid() %></td>
-								
-							</tr>
-							
-						<%
-						}
-						markupTotal = (totalShares > 100) ? total*1.01 :  total*1.02;
-						
-						%> 
-						<tr >
-							<td colspan="3">Total: 
-								<span id="totalPrice"><%=markupTotal%> </span>
-								(+ <%=(float)(markupTotal-total)%> feeLadder)
-								</td>
-							
-						</tr>
-					</tbody>
-				</table>
-				<button  type="button" class="btn btn-success" onclick="goBack()">Go Back</button>
-				<span style="margin-left: 10px;font-size: 10px;">* feeLadder: More than 100 shares:1%, otherwise, take 2% of total
-				</span>
-			</div>
-
-
-		</main>
-	</div>
+</main>
+</div>
 </div>
 <!-- end of the html UI code -->
 
@@ -187,29 +155,17 @@ int totalShares=0;
 
 
 
+<!-- Must put at the bottom of html file -->
+<!-- The website template lib -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+crossorigin="anonymous"></script>
+<!-- <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script> -->
+<script src="../assets/dist/js/bootstrap.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+<script src="js/dashboard.js"></script>
 
 
-
-
-
-
-
-
-
-
-
-
-
-    <!-- Must put at the bottom of html file -->
-    <!-- The website template lib -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
-        crossorigin="anonymous"></script>
-    <!-- <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script> -->
-    <script src="../assets/dist/js/bootstrap.bundle.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
-    <script src="js/dashboard.js"></script>
-
-	    
 
 </body>
+
 </html>
