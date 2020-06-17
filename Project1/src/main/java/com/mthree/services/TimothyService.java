@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mthree.dto.TimothyBidOrderDTO;
 import com.mthree.model.TimothyBidOrder;
 import com.mthree.model.TimothyInstrument;
 import com.mthree.repositories.TimothyBidOrderRepo;
@@ -29,21 +30,31 @@ public class TimothyService {
 	
 	
 	public List<TimothyInstrument> getAllInstrument(){
-
-				
-				
 		return timothyInstrumentRepo.findAll();
 	}
 	
+	
+	
+	//fins instrument
 	public Optional<TimothyInstrument> getInstrumentById(int id){
-		System.out.println("ASDASD");
-		return null;
-//		return timothyInstrumentRepo.findById(id);
+		return timothyInstrumentRepo.findById(id);
 	}
+	
+	
+	//find bidOrder by instrument
+	public List<TimothyBidOrder> getBidOrdersByInstrument(TimothyInstrument t){
+		return timothyBidOrderRepo.findByInstrument(t);
+	}
+	
+	
+	
+	public List<Object[]> getBidOrdersByInstrument2(TimothyInstrument t){
+		return timothyBidOrderRepo.dfindByInstrumentaa(t);
 
+	}
+	
+	public List<TimothyBidOrderDTO[]> getBidOrdersByInstrument3(TimothyInstrument t){
+		return timothyBidOrderRepo.dfindByInstrumentaaaa(t);
 
-//	public List<TimothyBidOrder> getBidOrder2(TimothyInstrument t) {
-//		System.out.println("reday to execute findall");
-//		return timothyBidOrderRepo.findByInstrument(t);
-//	}
+	}
 }
