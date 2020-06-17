@@ -1,6 +1,7 @@
 
 function goBack() {
-    window.history.back();
+    // window.history.back();
+    window.location = "../";
 }
 
 $(document).ready(function () {

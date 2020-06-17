@@ -4,20 +4,22 @@
         $http.get("/getbuyorders")
             .then(function (response) {
                 $scope.buyorders = response.data;
+
+                    $http.get("/getsellorders")
+                .then(function (response) {
+                    $scope.sellorders = response.data;
+
+                    if ($scope.sellorders.length >  $scope.buyorders.length ){
+                        $scope.mainOrder = $scope.sellorders ;
+                    }else{
+                        $scope.mainOrder = $scope.buyorders ;
+                    }
+
+                    
+                });
             });
 
-        $http.get("/getsellorders")
-            .then(function (response) {
-                $scope.sellorders = response.data;
-                
-                if ($scope.sellorders.length >  $scope.buyorders.length ){
-                    $scope.mainOrder = $scope.sellorders ;
-                }else{
-                    $scope.mainOrder = $scope.buyorders ;
-                }
-
-                
-            });
+        
         
         
         
