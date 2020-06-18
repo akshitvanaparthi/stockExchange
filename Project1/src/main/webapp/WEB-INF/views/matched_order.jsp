@@ -158,7 +158,6 @@ int totalShares=0;
     <!-- end of the html UI code -->
 
 
-    <!-- Will be moved to standlone js file later -->
 
 
 
