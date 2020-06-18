@@ -416,16 +416,25 @@ public class AllController
  	//cancel order
  	
  	@PostMapping("/sellcancel")
- 	public void cancelsell(HttpServletRequest r,
+ 	public ModelAndView cancelsell(HttpServletRequest r,
  			@RequestParam("sellid") String sellid){
+ 		System.out.println(sellid); //test
+ 		
+ 		
  		int i=Integer.parseInt(sellid);
          services.deleterowbyid(i);
+         return new ModelAndView("index");
  	}
+ 	
+ 	
  	@PostMapping("/buycancel")
- 	public void cancelbuy(HttpServletRequest r,
+ 	public ModelAndView cancelbuy(HttpServletRequest r,
  			@RequestParam("buyid") String buyid){
+ 		
+ 		System.out.println(buyid);
  		int i=Integer.parseInt(buyid);
          services.deleterowbyid1(i);
+         return new ModelAndView("index");
  	}
      
 }

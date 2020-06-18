@@ -192,10 +192,14 @@
                                 </div>
 
                                 <div id="cancelContainer" style="margin-bottom: 10px;display: none;">
-                                    <form id="cancelForm">
-                                        price: <input name="priceLimit" type="number" class="" step="0.01" style="height: 35px;">
-                                        volume: <input name="noOfShares" type="number" class="" style="height: 35px;">
-                                        <button type="submit" class="btn btn-secondary" id="submitCancelOrder">cancel</button>
+                                    <select id="cancelOption">
+                                        <option value="buyerIdOption">buyid</option>
+                                        <option value="sellerIdOption">sellid</option>
+                                    </select>
+                                    <form id="cancelForm" action="/buycancel" method="post">
+                                        <span id="OptionText">buyid:</span>
+                                         <input name="buyid" id="canclOpion" type="number" class="" step="0.01" style="height: 35px;">
+                                         <button type="submit" class="btn btn-secondary" id="submitCancelOrder">cancel</button>
                                     </form>
                                 </div>
                             </div>

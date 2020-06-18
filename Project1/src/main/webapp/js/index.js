@@ -49,6 +49,24 @@ $(document).ready(function () {
     })
 
 
+    
+    $("#cancelOption").on("change", function(){
+        // alert(this.value);
+        if (this.value == "buyerIdOption"){
+            $("#OptionText").text("buyId");
+            $("#canclOpion").attr("name", "buyid");
+            $("#cancelForm").attr("action","buycancel");
+            
+            // alert(this.value);
+
+        }else if(this.value == "sellerIdOption"){
+            $("#OptionText").text("sellId");
+            $("#canclOpion").attr("name", "sellid");
+            $("#cancelForm").attr("action","sellcancel");
+            // alert(this.value);
+        }
+    })
+
     // ---- [ Order button POST event] ----------
 
     /*   // since want to redirect to oreder_matched page, so disable these fn
