@@ -1,31 +1,53 @@
 
-    var app = angular.module('myApp', []);
-    app.controller('Ctrl', function ($scope, $http, $rootScope) {
-        $http.get("/getbuyorders")
-            .then(function (response) {
-                $scope.buyorders = response.data;
+var app = angular.module('myApp', []);
+app.controller('Ctrl', function ($scope, $http, $rootScope) {
 
-                    $http.get("/getsellorders")
+    //render the orderbook in UI
+    $http.get("/getbuyorders")
+        .then(function (response) {
+            $scope.buyorders = response.data;
+
+            $http.get("/getsellorders")
                 .then(function (response) {
                     $scope.sellorders = response.data;
 
-                    if ($scope.sellorders.length >  $scope.buyorders.length ){
-                        $scope.mainOrder = $scope.sellorders ;
-                    }else{
-                        $scope.mainOrder = $scope.buyorders ;
+                    if ($scope.sellorders.length > $scope.buyorders.length) {
+                        $scope.mainOrder = $scope.sellorders;
+                    } else {
+                        $scope.mainOrder = $scope.buyorders;
                     }
 
-                    
-                });
-            });
 
-        
-        
-        
-        
-    }); 
+                });
+        });
+
+    //redner the latest trade price
+    $http.get("/getBuyerHistory")
+        .then(function (response) {
+            $scope.buyOrderHistory = response.data;
+            $http.get("/getSellerHistory")
+                .then(function (response) {
+                    $scope.sellOrderHistory = response.data;
+                    lastSellPrice = $scope.sellOrderHistory[$scope.sellOrderHistory.length-1]
+                    lastBuyPrice = $scope.buyOrderHistory[$scope.buyOrderHistory.length-1]
+                    latestPrice = (lastBuyPrice.tradedPrice +  lastSellPrice.tradedPrice )/2
+                    // console.log(latestPrice)
+                    $("#latestPrice").text("[$" + latestPrice + "]" )
+                    $("#latestPrice").css("color","green")
+                }
+
+                );
+        }
+
+
+
+        );
+
+});
+
+
 $(document).ready(function () {
-    
+
     // ---- [ Show differnet input option/button] ----------
     // show Bid input
     $("#bidButton").click(function () {
@@ -49,20 +71,20 @@ $(document).ready(function () {
     })
 
 
-    
-    $("#cancelOption").on("change", function(){
+
+    $("#cancelOption").on("change", function () {
         // alert(this.value);
-        if (this.value == "buyerIdOption"){
+        if (this.value == "buyerIdOption") {
             $("#OptionText").text("buyId");
             $("#canclOpion").attr("name", "buyid");
-            $("#cancelForm").attr("action","buycancel");
-            
+            $("#cancelForm").attr("action", "buycancel");
+
             // alert(this.value);
 
-        }else if(this.value == "sellerIdOption"){
+        } else if (this.value == "sellerIdOption") {
             $("#OptionText").text("sellId");
             $("#canclOpion").attr("name", "sellid");
-            $("#cancelForm").attr("action","sellcancel");
+            $("#cancelForm").attr("action", "sellcancel");
             // alert(this.value);
         }
     })
