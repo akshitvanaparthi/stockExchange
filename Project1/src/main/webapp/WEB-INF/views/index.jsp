@@ -108,9 +108,16 @@
                     </h6>
                     <ul class="nav flex-column mb-2">
                         <li class="nav-item">
-                            <a class="nav-link" href="/buy_order_history">
+                            <a class="nav-link" href="/buyerHistory">
                                 <span data-feather="file-text"></span>
                                 Buy Order Record
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="/sellerHistory">
+                                <span data-feather="file-text"></span>
+                                Sell Order Record
                             </a>
                         </li>
                     <!-- 

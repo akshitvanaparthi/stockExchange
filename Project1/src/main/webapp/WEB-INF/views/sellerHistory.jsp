@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v4.0.1">
-    <title>Buy Order History</title>
+    <title>Sell Order History</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/">
 
@@ -22,7 +22,7 @@
     
     
     <!-- [self-define]Jquery script -->
-    <script src="js/buy_order_history.js"></script>
+    <script src="js/sellerHistory.js"></script>
 
     
     <!-- [Template]  Bootstrap core CSS lib -->
@@ -108,9 +108,15 @@
                     </h6>
                     <ul class="nav flex-column mb-2">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">
+                            <a class="nav-link " href="buyerHistory">
                                 <span data-feather="file-text"></span>
                                 Buy Order Record
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/sellerHistory">
+                                <span data-feather="file-text"></span>
+                                Sell Order Record
                             </a>
                         </li>
                     <!-- 
@@ -161,24 +167,26 @@
 
 
                 <!-- table bid ask cancale order button-->
-                <h2>Order Book</h2>
+                <h2>Matched sell order</h2>
 
                 <!-- order book table -->
                 <div class="table-responsive">
                     <table class="table table-striped table-sm">
                         <thead>
                             <tr>
-                                <th>Buy Order History Id</th>
-                                <th>Bid Shares</th>
-                                <th>Bid Price</th>
+                                <th>Seller ID</th>
+                                <th>Buyer ID</th>
+                                <th>traded Price</th>
+                                <th>Volume</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            <tr ng-repeat="x in buyOrderHistory">
-                                <td>{{x.buyOrderHistoryId}}</td>
-                                <td>{{x.buyShares}}</td>
-                                <td>{{x.bid}}</td>
+                            <tr ng-repeat="x in sellOrderHistory">
+                                <td>{{x.sellerId}}</td>
+                                <td>{{x.buyerId}}</td>
+                                <td>{{x.tradedPrice}}</td>
+                                <td>{{x.volume}}</td>
                             </tr>
                         </tbody>
                     </table>
