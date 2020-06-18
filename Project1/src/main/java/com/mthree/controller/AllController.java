@@ -418,7 +418,7 @@ public class AllController
  	@PostMapping("/sellcancel")
  	public ModelAndView cancelsell(HttpServletRequest r,
  			@RequestParam("sellid") String sellid){
- 		System.out.println(sellid); //test
+// 		System.out.println(sellid); //test
  		
  		
  		int i=Integer.parseInt(sellid);
@@ -431,7 +431,7 @@ public class AllController
  	public ModelAndView cancelbuy(HttpServletRequest r,
  			@RequestParam("buyid") String buyid){
  		
- 		System.out.println(buyid);
+// 		System.out.println(buyid);
  		int i=Integer.parseInt(buyid);
          services.deleterowbyid1(i);
          return new ModelAndView("index");
