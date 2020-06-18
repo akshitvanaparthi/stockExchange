@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mthree.model.BuyOrder;
+import com.mthree.model.BuyerHistory;
 import com.mthree.model.OrderBook;
 import com.mthree.model.SellOrder;
+import com.mthree.model.SellerHistory;
 import com.mthree.model.User;
 import com.mthree.repositories.BuyRepositary;
 import com.mthree.repositories.BuyerHistoryRepo;
@@ -174,5 +176,15 @@ public class AllServices
 	public void deleterowbyid1(int i) {
 		buy.deleteById(i);
 	}
+
+	public List<BuyerHistory> getAllBuyerHistory() {
+		
+		return bhistory.findAll();
+	}
+	public List<SellerHistory> getAllSellerHistory() {
+		
+		return shistory.findAll();
+	}
+	
 
 }

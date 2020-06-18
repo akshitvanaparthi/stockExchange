@@ -8,6 +8,7 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mthree.model.BuyOrder;
+import com.mthree.model.BuyerHistory;
 import com.mthree.model.OrderBook;
 import com.mthree.model.SellOrder;
+import com.mthree.model.SellerHistory;
 import com.mthree.model.User;
 import com.mthree.services.AllServices;
 
@@ -435,6 +438,39 @@ public class AllController
  		int i=Integer.parseInt(buyid);
          services.deleterowbyid1(i);
          return new ModelAndView("index");
+ 	}
+ 	
+ 	
+ 	// buyer history REST
+ 	@GetMapping("/getBuyerHistory")
+ 	public List<BuyerHistory> getAllBuyerHistory(){
+ 		return services.getAllBuyerHistory();
+ 		
+ 	}
+
+ 	// seller history REST
+ 	@GetMapping("/getSellerHistory")
+ 	public List<SellerHistory> getAllSellerHistory(){
+ 		return services.getAllSellerHistory();
+ 		
+ 	}
+ 	
+ 	// buyer history page
+ 	@GetMapping("/buyerHistory")
+ 	public ModelAndView buyerHistoryPage() {
+ 		
+ 		//TODO: can check is user logged-in or not, do later
+ 		
+ 		return new ModelAndView("buyerHistory");
+ 	}
+ 	
+ 	// selelr history page
+ 	@GetMapping("/sellerHistory")
+ 	public ModelAndView sellerHistoryPage() {
+ 		
+ 		//TODO: can check is user logged-in or not, do later
+ 		
+ 		return new ModelAndView("sellerHistory");
  	}
      
 }
