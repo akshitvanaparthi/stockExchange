@@ -184,7 +184,7 @@
 
                                 <div id="bidContainer" style="margin-bottom: 10px;visibility: visible">
                                     <form id="bidForm" method ="post" action="/performBuyMatch">
-                                        price: <input name="priceLimit" id="" type="number" class="" step="0.01" style="height: 35px;">
+                                        price: <input name="priceLimit" id="" type="number" class="" style="height: 35px;">
                                         volume: <input name="noOfShares" id="" type="number" class="" style="height: 35px;">
                                         <button type="submit" class="btn btn-primary" id="submitBidOrder">Bid</button>
                                     </form>
@@ -192,7 +192,7 @@
 
                                 <div id="askContainer" style="margin-bottom: 10px;display: none;">
                                     <form id="askForm" method ="post" action="/performSellMatch">
-                                        price: <input name="priceLimit" type="number" class="" step="0.01" style="height: 35px;">
+                                        price: <input name="priceLimit" type="number" class=""  style="height: 35px;">
                                         volume:<input name="noOfShares" type="number" class="" style="height: 35px;">
                                         <button type="submit" class="btn btn-danger" id="submitAskOrder">Ask</button>
                                     </form>
