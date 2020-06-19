@@ -5,6 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 //import org.springframework.beans.factory.annotation.Autowired;
 
+/**
+ * Order book entity
+ * @author Akshit
+ *
+ */
 @Entity
 public class OrderBook{
 	@Id

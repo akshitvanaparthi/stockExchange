@@ -8,10 +8,22 @@ import org.springframework.stereotype.Repository;
 
 import com.mthree.model.User;
 
-@Repository
-public interface UserRepository extends JpaRepository<User,Integer>{
 
-	
+/**
+ * Repository for User Entity
+ * 
+ * @author Sai Kumar
+ *
+ */
+@Repository
+public interface UserRepository extends JpaRepository<User,Integer>
+{
+	/**
+	 * Query for Login user
+	 * @param username
+	 * @param password
+	 * @return
+	 */
 	@Query(
 			value="SELECT id, username, password FROM user u "
 					+ "WHERE u.username  = :username AND u.password = :password"

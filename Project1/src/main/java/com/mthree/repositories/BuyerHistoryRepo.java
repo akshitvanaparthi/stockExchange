@@ -11,9 +11,21 @@ import org.springframework.stereotype.Repository;
 
 import com.mthree.model.BuyerHistory;
 
+/**
+ * Repository for BuyerHistory Entity
+ * @author Timothy
+ *
+ */
 @Repository
 public interface BuyerHistoryRepo extends JpaRepository<BuyerHistory,Integer>
 {
+	/**
+	 * Insert a record in Buyer History table
+	 * @param buyerid
+	 * @param sellerid
+	 * @param shares
+	 * @param ask
+	 */
 	@Modifying
 	@Transactional
 	@Query(value="INSERT into buyer_history (buyer_id,seller_id,volume,traded_price) VALUES (:buyerid,:sellerid,:shares,:ask)" ,nativeQuery = true)

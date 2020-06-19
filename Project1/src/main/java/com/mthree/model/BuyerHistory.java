@@ -3,6 +3,11 @@ package com.mthree.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+/**
+ * Buyer History Entity
+ * @author Sahithi
+ *
+ */
 @Entity
 public class BuyerHistory {
 

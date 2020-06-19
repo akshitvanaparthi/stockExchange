@@ -5,6 +5,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+/**
+ * User Entity
+ * @author Sai kumar
+ *
+ */
 @Entity
 public class User {
 	

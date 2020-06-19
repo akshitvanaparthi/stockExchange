@@ -4,8 +4,15 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+/**
+ * Buy Order Entity
+ * @author Sahithi
+ *
+ */
 @Entity
-public class BuyOrder {
+public class BuyOrder 
+{
 	
 	    @Id
 		private int buyId;

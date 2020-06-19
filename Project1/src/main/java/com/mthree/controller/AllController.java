@@ -8,7 +8,6 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +23,15 @@ import com.mthree.model.SellerHistory;
 import com.mthree.model.User;
 import com.mthree.services.AllServices;
 
+
+/**
+ * All Controller acts as REST Controller which contacts with Service layer
+ * 
+ * @author Akshit
+ * @author Sai Kumar
+ *
+ */
+
 @RestController
 @RequestMapping
 public class AllController 
@@ -32,20 +40,33 @@ public class AllController
      @Autowired
 	public AllServices services;
      
-     //latestVersion
-     
   // ---- [ Login ] ---
  	//redirect index page
+     
+     /**
+      * 
+      * @param r HttpServletRequest
+      * @return viewPage jsp
+      */
+     
  	@GetMapping("/")
- 	public ModelAndView showIndex(HttpServletRequest r) {
+ 	public ModelAndView showIndex(HttpServletRequest r) 
+ 	{
  		// Desc: return index page
- 		
- 		if (r.getSession().getAttribute("username") == null) {
+ 		//To check whther user is already login or not 	
+ 		if (r.getSession().getAttribute("username") == null) 
+ 		{
  			return new ModelAndView("login");
  		}
  		return new ModelAndView("index");
  	}
  	
+ 	/**
+ 	 * Used to Display Login Page
+ 	 * 
+ 	 * @param r HttpServletRequest
+ 	 * @return jsp page
+ 	 */
  	
  	@GetMapping("/login")
  	public ModelAndView showLoginPage(HttpServletRequest r) {
@@ -61,7 +82,12 @@ public class AllController
  	}
 
 
- 	
+ 	/**
+ 	 * Logout Page
+ 	 * 
+ 	 * @param r HttpServletRequest
+ 	 * @return Jsp file
+ 	 */
  	
  	@GetMapping("/logout")
  	public ModelAndView logoutUser(HttpServletRequest r) {
@@ -72,6 +98,13 @@ public class AllController
  		return new ModelAndView("login"); 
  	}
  	
+ 	/**
+ 	 * Checking login functionality
+ 	 * @param r HttpServletRequest
+ 	 * @param username
+ 	 * @param password
+ 	 * @return HomePage
+ 	 */
  	
  	@PostMapping("/login")
  	public ModelAndView loginUser(HttpServletRequest r,
@@ -108,14 +141,23 @@ public class AllController
  		
  	}
  	
+ 	/**
+ 	 * 
+ 	 * @return Registration page
+ 	 */
  	
- 	// --- [ register ] -------------
  	@GetMapping("/register")
  	public ModelAndView showRegisterPage() {
  		return new ModelAndView ("register");
  	}
  	
- 	
+ 	/**
+ 	 * User Registration Functionality
+ 	 * 
+ 	 * @param username
+ 	 * @param password
+ 	 * @return Homepage
+ 	 */
  	
  	@PostMapping("/register")
  	public ModelAndView registerUser(
@@ -146,17 +188,10 @@ public class AllController
    // SORT IMPLEMENTATION
      
      
-     
- 
-	
- 
-     
-     
-     
-     @GetMapping("/getOrderBook")
+    /* @GetMapping("/getOrderBook")
      public ModelAndView getOrders()
      {
-    	 
+    	// Optional method : May be implemented later 
     	 
     	List<OrderBook> orderBookList = services.loadOrders();
   		
@@ -174,14 +209,16 @@ public class AllController
   		
   		return mv;
      }
+     
+     */
  	
-     @GetMapping("/buyOrderOpen")
+  /*   @GetMapping("/buyOrderOpen")
   	public ModelAndView buyOrderOpen() 
      {
   		
   		return new ModelAndView("buyOrderPage"); 
   	}
-     
+     */
      
      /*
      //testing POST request with /performBuyMatch","/performAskMatch","/performCancelMatch 
@@ -200,9 +237,16 @@ public class AllController
      }
      */
      
+ 	/**
+ 	 * To Slice the New BuyOrder with the Sellers
+ 	 * 
+ 	 * @param shares    Volume
+ 	 * @param priceLimit  Bid price
+ 	 * @param m BuyOrder
+ 	 * @return List of matched sell orders
+ 	 */
      public ArrayList<SellOrder> sharesLoop(int shares,float priceLimit,BuyOrder m)
      {
-	   	  //int shareValue=0;
 	      List<SellOrder> sharesList= services.buyOrderMatch(priceLimit);
 	      
 	      ArrayList<SellOrder> matchedList=new ArrayList<SellOrder>();
@@ -227,14 +271,11 @@ public class AllController
 				{
 					matchedList.add(new SellOrder(sharesList.get(i).getSellId(),shares,sharesList.get(i).getAsk()));
 					int shares1 = sharesList.get(i).getSellShares() - shares;
-					services.updaterowfromsellorder(shares1,sharesList.get(i).getSellId());
-					
+					services.updaterowfromsellorder(shares1,sharesList.get(i).getSellId());	
 					shares =0;
 					break;
 				}
-		
 	  	  }
-	  	  
 	  	  if(flag !=0 && shares !=0 )
 	  	  {
 	  		services.insertrowinbuyorder(m.getBuyId(),m.getBid(),shares);
@@ -244,6 +285,15 @@ public class AllController
   	 }
      
   
+     /**
+      * To perform Buy order match
+      * 
+      * @param r HttpServletRequest
+      * @param noOfShares1
+      * @param priceLimit1
+      * @return jsp file
+      */
+     
      @PostMapping("/performBuyMatch")
   	public ModelAndView buyOrderMatch(HttpServletRequest r,
   			@RequestParam("noOfShares") String noOfShares1,
@@ -283,14 +333,18 @@ public class AllController
 			services.insertrowinbuyorder(matchedBuyOrder.getBuyId(),matchedBuyOrder.getBid(),matchedBuyOrder.getBuyShares());
 			mv.setViewName("empty");	
 		}
-  			
-		
-		return mv;
-		
-  		
+  				
+		return mv;	
   	}
      
-     
+     /**
+      * To perform slice operation for new Sell order with different buyers
+      * 
+      * @param shares
+      * @param priceLimit
+      * @param m SellOrder
+      * @return Jsp page
+      */
      
      
      public ArrayList<BuyOrder> sharesBuyLoop(int shares,float priceLimit,SellOrder m)
@@ -334,6 +388,13 @@ public class AllController
      
      
      
+     /**
+      * To perform Sell order match
+      * @param r HttpServletRequest
+      * @param noOfShares1
+      * @param priceLimit1
+      * @return Jsp Page
+      */
      
      @PostMapping("/performSellMatch")
   	public ModelAndView sellOrderMatch(HttpServletRequest r,
@@ -381,7 +442,10 @@ public class AllController
   	}
      
      
-     
+     /**
+      * To retrieve sell orders
+      * @return List of sell orders
+      */
      
      
      @GetMapping("/getsellorders")
@@ -391,16 +455,18 @@ public class AllController
      	return services.loadSell();
   	 }
      
-     
-     
-     
+     /**
+      * To retrieve buy orders
+      * @return List of buy orders
+      */
+   
      @GetMapping("/getbuyorders")
    	public List<BuyOrder> getbuy(){
     	 System.out.println(services.loadBuy());
    		return services.loadBuy();
    	} 
       
-    
+   /* 
  	@GetMapping("/orders")
     public List<OrderBook> getValues()
     {
@@ -408,7 +474,7 @@ public class AllController
     }
     
    
- 	
+ 	*/
    /* @PostMapping("/getBuyValues")
     public List<BuyOrder> getBuyValues(int buy_shares){
 	    return services.loadBuyValues(buy_shares);
@@ -417,6 +483,14 @@ public class AllController
  	
  	
  	//cancel order
+     
+     
+     /**
+      * Cancel sell order based in seller id
+      * @param r HttpServletRequest
+      * @param sellid
+      * @return jsp page
+      */
  	
  	@PostMapping("/sellcancel")
  	public ModelAndView cancelsell(HttpServletRequest r,
@@ -429,7 +503,12 @@ public class AllController
          return new ModelAndView("index");
  	}
  	
- 	
+ 	/**
+     * Cancel buy order based in buyer id
+     * @param r HttpServletRequest
+     * @param buyid
+     * @return jsp page
+     */
  	@PostMapping("/buycancel")
  	public ModelAndView cancelbuy(HttpServletRequest r,
  			@RequestParam("buyid") String buyid){
@@ -441,21 +520,30 @@ public class AllController
  	}
  	
  	
- 	// buyer history REST
+ 	/**
+ 	 * To retrieve Buyer History
+ 	 * @return List of Buyers history
+ 	 */
  	@GetMapping("/getBuyerHistory")
  	public List<BuyerHistory> getAllBuyerHistory(){
  		return services.getAllBuyerHistory();
  		
  	}
 
- 	// seller history REST
+ 	/**
+ 	 * To retrieve Seller History
+ 	 * @return List of sellerrs history
+ 	 */
  	@GetMapping("/getSellerHistory")
  	public List<SellerHistory> getAllSellerHistory(){
  		return services.getAllSellerHistory();
  		
  	}
  	
- 	// buyer history page
+ 	/**
+ 	 * Buyer History page
+ 	 * @return Buyer history page
+ 	 */
  	@GetMapping("/buyerHistory")
  	public ModelAndView buyerHistoryPage() {
  		
@@ -464,7 +552,10 @@ public class AllController
  		return new ModelAndView("buyerHistory");
  	}
  	
- 	// selelr history page
+ 	/**
+ 	 * 
+ 	 * @return Seller history page
+ 	 */
  	@GetMapping("/sellerHistory")
  	public ModelAndView sellerHistoryPage() {
  		
@@ -472,5 +563,9 @@ public class AllController
  		
  		return new ModelAndView("sellerHistory");
  	}
+ 	
+ 	
+ 	
+ 	
      
 }
