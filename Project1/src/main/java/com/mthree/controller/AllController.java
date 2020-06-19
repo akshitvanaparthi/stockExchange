@@ -132,7 +132,7 @@ public class AllController
  		
 // 		System.out.println(new_u);//debug
  		if (new_u.getId() != 0) {
- 			return new ModelAndView("index");
+ 			return new ModelAndView("login");
  		}else {
  			//TODO: may return what wrongs in the from to user
  			return new ModelAndView("register");
